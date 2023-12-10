@@ -129,12 +129,8 @@ if __name__ == '__main__':
     training_transformations = T.Compose([T.Resize((256,160))])
     validation_transformations = T.Compose([T.Resize((256,160))])
     target_transformations = T.Compose([T.Resize((256,160),interpolation=0)])
-    if with_temporal:
-        train_ds = ProtoDatasetWithNt(path_list=train_paths,dt=dt,transform=training_transformations,mode='train',target_transform=target_transformations,classes=classes)
-        val_ds = ProtoDatasetWithNt(path_list=val_paths,dt=dt,transform=validation_transformations,mode='val',target_transform=target_transformations,classes=classes)
-    else:
-        train_ds = ProtoDataset(path_list=train_paths,dt=dt,transform=training_transformations,mode='train',target_transform=target_transformations,classes=classes)
-        val_ds = ProtoDataset(path_list=val_paths,dt=dt,transform=validation_transformations,mode='val',target_transform=target_transformations,classes=classes)
+    train_ds = ProtoDataset(path_list=train_paths,dt=dt,transform=training_transformations,mode='train',target_transform=target_transformations,classes=classes)
+    val_ds = ProtoDataset(path_list=val_paths,dt=dt,transform=validation_transformations,mode='val',target_transform=target_transformations,classes=classes)
     train_ds_len = len(train_ds)
     train_loader = torch.utils.data.DataLoader(train_ds,batch_size=batch_size,
                             shuffle=True,num_workers=num_workers,pin_memory=True)
